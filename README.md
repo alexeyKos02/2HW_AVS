@@ -9,15 +9,15 @@
 
 Если вам интересны комментарии:
 ```sh
-MAX_SIZE:                     # максимальная длина массива
-    .long 1000                   # значение этой длины
-    .local ARRAY_A               # массив считывания
-    .comm ARRAY_A,4000,32        # память под этот массив
-    .local ARRAY_B               # преобразованный массив
-    .comm ARRAY_B,4000,32        # память под этот массив
-    .text
-    .globl compare               # объявление функции
-    .type compare, @function
+	.file	"main.c"
+	.intel_syntax noprefix
+	.text
+	.local	START							      # строка в которой ищем подстроку.
+	.comm	START,1000,32					    # выделение памяти на строку.
+	.local	SEARCHABLE						  # искомая подстрока.
+	.comm	SEARCHABLE,1000,32				# выделение памяти в подстроку.
+	.globl	randomDate						  # объявление функции рандомной генерации данных.
+	.type	randomDate, @function
  ```
  ## Тестирование
  Тесты расположены в данной [директории](tests/tests/).
