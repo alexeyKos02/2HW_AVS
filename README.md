@@ -12,11 +12,11 @@
 	.file	"main.c"
 	.intel_syntax noprefix
 	.text
-	.local	START							      # строка в которой ищем подстроку.
-	.comm	START,1000,32					    # выделение памяти на строку.
-	.local	SEARCHABLE						  # искомая подстрока.
-	.comm	SEARCHABLE,1000,32				# выделение памяти в подстроку.
-	.globl	randomDate						  # объявление функции рандомной генерации данных.
+	.local	START							# строка в которой ищем подстроку.
+	.comm	START,1000,32					    	# выделение памяти на строку.
+	.local	SEARCHABLE						# искомая подстрока.
+	.comm	SEARCHABLE,1000,32					# выделение памяти в подстроку.
+	.globl	randomDate						# объявление функции рандомной генерации данных.
 	.type	randomDate, @function
  ```
  ## Тестирование
