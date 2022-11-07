@@ -1,0 +1,4 @@
+The search string starts with the character 3
+not found
+incorrect input
+incorrect input
