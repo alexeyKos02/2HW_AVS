@@ -1,20 +1,20 @@
 	.file	"main.c"
 	.intel_syntax noprefix
 	.text
-	.local	START							# строка в которой ищем подстроку.
-	.comm	START,1000,32					# выделение памяти на строку.
-	.local	SEARCHABLE						# искомая подстрока.
-	.comm	SEARCHABLE,1000,32				# выделение памяти в подстроку.
-	.globl	randomDate						# объявление функции рандомной генерации данных.
+	.local	START							# СЃС‚СЂРѕРєР° РІ РєРѕС‚РѕСЂРѕР№ РёС‰РµРј РїРѕРґСЃС‚СЂРѕРєСѓ.
+	.comm	START,1000,32					# РІС‹РґРµР»РµРЅРёРµ РїР°РјСЏС‚Рё РЅР° СЃС‚СЂРѕРєСѓ.
+	.local	SEARCHABLE						# РёСЃРєРѕРјР°СЏ РїРѕРґСЃС‚СЂРѕРєР°.
+	.comm	SEARCHABLE,1000,32				# РІС‹РґРµР»РµРЅРёРµ РїР°РјСЏС‚Рё РІ РїРѕРґСЃС‚СЂРѕРєСѓ.
+	.globl	randomDate						# РѕР±СЉСЏРІР»РµРЅРёРµ С„СѓРЅРєС†РёРё СЂР°РЅРґРѕРјРЅРѕР№ РіРµРЅРµСЂР°С†РёРё РґР°РЅРЅС‹С….
 	.type	randomDate, @function
 randomDate:
 	endbr64
 	push	rbp
 	mov	rbp, rsp
-	sub	rsp, 16								# две строчки реализация time(null)
+	sub	rsp, 16								# РґРІРµ СЃС‚СЂРѕС‡РєРё СЂРµР°Р»РёР·Р°С†РёСЏ time(null)
 	mov	edi, 0								#
-	call	time@PLT						# три строчки вниз 
-	mov	edi, eax							# реализация scrand
+	call	time@PLT						# С‚СЂРё СЃС‚СЂРѕС‡РєРё РІРЅРёР·
+	mov	edi, eax							# СЂРµР°Р»РёР·Р°С†РёСЏ scrand
 	call	srand@PLT						#
 	call	rand@PLT
 	movsx	rdx, eax
@@ -28,9 +28,9 @@ randomDate:
 	mov	edx, DWORD PTR -12[rbp]
 	imul	edx, edx, 1000
 	sub	eax, edx
-	mov	DWORD PTR -12[rbp], eax				# в переменную rand_count кладем получившееся значение
-	mov	DWORD PTR -4[rbp], 0				# в цикле for в переменную i кладем 0
-	jmp	.L2									# переход к циклу.
+	mov	DWORD PTR -12[rbp], eax				# РІ РїРµСЂРµРјРµРЅРЅСѓСЋ rand_count РєР»Р°РґРµРј РїРѕР»СѓС‡РёРІС€РµРµСЃСЏ Р·РЅР°С‡РµРЅРёРµ
+	mov	DWORD PTR -4[rbp], 0				# РІ С†РёРєР»Рµ for РІ РїРµСЂРµРјРµРЅРЅСѓСЋ i РєР»Р°РґРµРј 0
+	jmp	.L2									# РїРµСЂРµС…РѕРґ Рє С†РёРєР»Сѓ.
 .L3:
 	call	rand@PLT
 	cdq
@@ -42,13 +42,13 @@ randomDate:
 	mov	eax, DWORD PTR -4[rbp]
 	cdqe
 	lea	rdx, START[rip]
-	mov	BYTE PTR [rax+rdx], cl				# в строку START добавляет символ
-	add	DWORD PTR -4[rbp], 1				# увеличивает i на единицу 
+	mov	BYTE PTR [rax+rdx], cl				# РІ СЃС‚СЂРѕРєСѓ START РґРѕР±Р°РІР»СЏРµС‚ СЃРёРјРІРѕР»
+	add	DWORD PTR -4[rbp], 1				# СѓРІРµР»РёС‡РёРІР°РµС‚ i РЅР° РµРґРёРЅРёС†Сѓ
 .L2:
-	mov	eax, DWORD PTR -4[rbp]				# в eax кладем значение i
-	cmp	eax, DWORD PTR -12[rbp]				# сравниваем i с rand_count
-	jl	.L3									# заходим в цикл.
-	mov	DWORD PTR -8[rbp], 0				# во втором цикле присваивает i единицу.
+	mov	eax, DWORD PTR -4[rbp]				# РІ eax РєР»Р°РґРµРј Р·РЅР°С‡РµРЅРёРµ i
+	cmp	eax, DWORD PTR -12[rbp]				# СЃСЂР°РІРЅРёРІР°РµРј i СЃ rand_count
+	jl	.L3									# Р·Р°С…РѕРґРёРј РІ С†РёРєР».
+	mov	DWORD PTR -8[rbp], 0				# РІРѕ РІС‚РѕСЂРѕРј С†РёРєР»Рµ РїСЂРёСЃРІР°РёРІР°РµС‚ i РµРґРёРЅРёС†Сѓ.
 	jmp	.L4
 .L5:
 	call	rand@PLT
@@ -61,12 +61,12 @@ randomDate:
 	mov	eax, DWORD PTR -8[rbp]
 	cdqe
 	lea	rdx, SEARCHABLE[rip]
-	mov	BYTE PTR [rax+rdx], cl			# добавляет в подстроку символ.
-	add	DWORD PTR -8[rbp], 1			# увеличивает i на единицу.
+	mov	BYTE PTR [rax+rdx], cl			# РґРѕР±Р°РІР»СЏРµС‚ РІ РїРѕРґСЃС‚СЂРѕРєСѓ СЃРёРјРІРѕР».
+	add	DWORD PTR -8[rbp], 1			# СѓРІРµР»РёС‡РёРІР°РµС‚ i РЅР° РµРґРёРЅРёС†Сѓ.
 .L4:
-	mov	eax, DWORD PTR -8[rbp]			# перемещает в eax значение i
-	cmp	eax, DWORD PTR -12[rbp]			# сравнивает i  с rand_count
-	jl	.L5								# заходит в цикл.
+	mov	eax, DWORD PTR -8[rbp]			# РїРµСЂРµРјРµС‰Р°РµС‚ РІ eax Р·РЅР°С‡РµРЅРёРµ i
+	cmp	eax, DWORD PTR -12[rbp]			# СЃСЂР°РІРЅРёРІР°РµС‚ i  СЃ rand_count
+	jl	.L5								# Р·Р°С…РѕРґРёС‚ РІ С†РёРєР».
 	nop
 	nop
 	leave
@@ -111,48 +111,48 @@ main:
 	mov	QWORD PTR -160[rbp], rsi
 	mov	rax, QWORD PTR -160[rbp]
 	add	rax, 8
-	mov	rax, QWORD PTR [rax]				# в rax кладется argv[1]
-	lea	rdx, .LC0[rip]						# в rsi кладется строка "-c"
-	mov	rsi, rdx							# в rsi кладется строка
-	mov	rdi, rax							# кладется argv[1]
-	call	strcmp@PLT						# вызывается сравнение
+	mov	rax, QWORD PTR [rax]				# РІ rax РєР»Р°РґРµС‚СЃСЏ argv[1]
+	lea	rdx, .LC0[rip]						# РІ rsi РєР»Р°РґРµС‚СЃСЏ СЃС‚СЂРѕРєР° "-c"
+	mov	rsi, rdx							# РІ rsi РєР»Р°РґРµС‚СЃСЏ СЃС‚СЂРѕРєР°
+	mov	rdi, rax							# РєР»Р°РґРµС‚СЃСЏ argv[1]
+	call	strcmp@PLT						# РІС‹Р·С‹РІР°РµС‚СЃСЏ СЃСЂР°РІРЅРµРЅРёРµ
 	test	eax, eax
-	jne	.L7									# переход к else if
-	sub	DWORD PTR -148[rbp], 2				# отнимаем из args два
-	cmp	DWORD PTR -148[rbp], 2				# сравниваем args с двойкой
-	je	.L8									# если не выполнется, пропускаем цикл
-	lea	rax, .LC1[rip]						# в rax кладем строку "incorrect input"
+	jne	.L7									# РїРµСЂРµС…РѕРґ Рє else if
+	sub	DWORD PTR -148[rbp], 2				# РѕС‚РЅРёРјР°РµРј РёР· args РґРІР°
+	cmp	DWORD PTR -148[rbp], 2				# СЃСЂР°РІРЅРёРІР°РµРј args СЃ РґРІРѕР№РєРѕР№
+	je	.L8									# РµСЃР»Рё РЅРµ РІС‹РїРѕР»РЅРµС‚СЃСЏ, РїСЂРѕРїСѓСЃРєР°РµРј С†РёРєР»
+	lea	rax, .LC1[rip]						# РІ rax РєР»Р°РґРµРј СЃС‚СЂРѕРєСѓ "incorrect input"
 	mov	rdi, rax
 	mov	eax, 0
-	call	printf@PLT						# вызываем функция отображения не консоли.
+	call	printf@PLT						# РІС‹Р·С‹РІР°РµРј С„СѓРЅРєС†РёСЏ РѕС‚РѕР±СЂР°Р¶РµРЅРёСЏ РЅРµ РєРѕРЅСЃРѕР»Рё.
 	mov	eax, 0
 	jmp	.L19								# return 0.
 .L8:
 	mov	rax, QWORD PTR -160[rbp]
-	add	rax, 24								
-	mov	rdx, QWORD PTR [rax]				#  получаем argv[3]
+	add	rax, 24
+	mov	rdx, QWORD PTR [rax]				#  РїРѕР»СѓС‡Р°РµРј argv[3]
 	mov	rax, QWORD PTR -160[rbp]
-	add	rax, 16								
-	mov	rax, QWORD PTR [rax]				#  получаем argv[2]
+	add	rax, 16
+	mov	rax, QWORD PTR [rax]				#  РїРѕР»СѓС‡Р°РµРј argv[2]
 	mov	rsi, rdx
 	mov	rdi, rax
-	call	Find@PLT						# вызываем функцию find
-	mov	QWORD PTR -40[rbp], rax				# в istr кладем значение find.
-	cmp	QWORD PTR -40[rbp], 0				# istr сравнивем с null 
+	call	Find@PLT						# РІС‹Р·С‹РІР°РµРј С„СѓРЅРєС†РёСЋ find
+	mov	QWORD PTR -40[rbp], rax				# РІ istr РєР»Р°РґРµРј Р·РЅР°С‡РµРЅРёРµ find.
+	cmp	QWORD PTR -40[rbp], 0				# istr СЃСЂР°РІРЅРёРІРµРј СЃ null
 	jne	.L10
-	lea	rax, .LC2[rip]						# в rax кладем строку "string not found\n"				
+	lea	rax, .LC2[rip]						# РІ rax РєР»Р°РґРµРј СЃС‚СЂРѕРєСѓ "string not found\n"
 	mov	rdi, rax
 	call	puts@PLT
-	jmp	.L11								
+	jmp	.L11
 .L10:
 	mov	rax, QWORD PTR -160[rbp]
 	add	rax, 16
-	mov	rdx, QWORD PTR [rax]				# в rdx кладем значение argv[2]
-	mov	rax, QWORD PTR -40[rbp]				# в rax кладем значение istr
-	sub	rax, rdx							# вычитаем из rax rdx
-	add	rax, 1								# прибавляем к rax единицу.
+	mov	rdx, QWORD PTR [rax]				# РІ rdx РєР»Р°РґРµРј Р·РЅР°С‡РµРЅРёРµ argv[2]
+	mov	rax, QWORD PTR -40[rbp]				# РІ rax РєР»Р°РґРµРј Р·РЅР°С‡РµРЅРёРµ istr
+	sub	rax, rdx							# РІС‹С‡РёС‚Р°РµРј РёР· rax rdx
+	add	rax, 1								# РїСЂРёР±Р°РІР»СЏРµРј Рє rax РµРґРёРЅРёС†Сѓ.
 	mov	rsi, rax
-	lea	rax, .LC3[rip]						# в rax кладем строку "The search string starts with the character %ld\n"			
+	lea	rax, .LC3[rip]						# РІ rax РєР»Р°РґРµРј СЃС‚СЂРѕРєСѓ "The search string starts with the character %ld\n"
 	mov	rdi, rax
 	mov	eax, 0
 	call	printf@PLT
@@ -160,50 +160,50 @@ main:
 .L7:
 	mov	rax, QWORD PTR -160[rbp]
 	add	rax, 8
-	mov	rax, QWORD PTR [rax]				# в rax кладем значение argv[1]
-	lea	rdx, .LC4[rip]						# в rdx кладем строку "-f"
+	mov	rax, QWORD PTR [rax]				# РІ rax РєР»Р°РґРµРј Р·РЅР°С‡РµРЅРёРµ argv[1]
+	lea	rdx, .LC4[rip]						# РІ rdx РєР»Р°РґРµРј СЃС‚СЂРѕРєСѓ "-f"
 	mov	rsi, rdx
 	mov	rdi, rax
-	call	strcmp@PLT						# сравниваем строку со значение argv[1]
+	call	strcmp@PLT						# СЃСЂР°РІРЅРёРІР°РµРј СЃС‚СЂРѕРєСѓ СЃРѕ Р·РЅР°С‡РµРЅРёРµ argv[1]
 	test	eax, eax
 	jne	.L12
 	mov	rax, QWORD PTR -160[rbp]
 	add	rax, 16
-	mov	rax, QWORD PTR [rax]				# в rax кладем argv[2]
-	lea	rdx, .LC5[rip]						# в rdx кладем "r"
-	mov	rsi, rdx							
+	mov	rax, QWORD PTR [rax]				# РІ rax РєР»Р°РґРµРј argv[2]
+	lea	rdx, .LC5[rip]						# РІ rdx РєР»Р°РґРµРј "r"
+	mov	rsi, rdx
 	mov	rdi, rax
-	call	fopen@PLT						# вызываем фукнция fopen
+	call	fopen@PLT						# РІС‹Р·С‹РІР°РµРј С„СѓРєРЅС†РёСЏ fopen
 	mov	QWORD PTR -16[rbp], rax
 	mov	rax, QWORD PTR -160[rbp]
 	add	rax, 24
-	mov	rax, QWORD PTR [rax]				# в rax кладем argv[3]				
-	lea	rdx, .LC6[rip]						# в rdx кладем "w"
+	mov	rax, QWORD PTR [rax]				# РІ rax РєР»Р°РґРµРј argv[3]
+	lea	rdx, .LC6[rip]						# РІ rdx РєР»Р°РґРµРј "w"
 	mov	rsi, rdx
 	mov	rdi, rax
-	call	fopen@PLT						# вызываем фукнция fopen
+	call	fopen@PLT						# РІС‹Р·С‹РІР°РµРј С„СѓРєРЅС†РёСЏ fopen
 	mov	QWORD PTR -24[rbp], rax
-	mov	rax, QWORD PTR -16[rbp]				
-	lea	rdx, START[rip]						# в rdx кладется начало строки START 
-	lea	rcx, .LC7[rip]						# в rcx кладем "%s"					
+	mov	rax, QWORD PTR -16[rbp]
+	lea	rdx, START[rip]						# РІ rdx РєР»Р°РґРµС‚СЃСЏ РЅР°С‡Р°Р»Рѕ СЃС‚СЂРѕРєРё START
+	lea	rcx, .LC7[rip]						# РІ rcx РєР»Р°РґРµРј "%s"
 	mov	rsi, rcx
 	mov	rdi, rax
 	mov	eax, 0
-	call	__isoc99_fscanf@PLT				# вызывается fscanf
-	cmp	eax, 1								#сравнивает возвращенные данные с единицей
+	call	__isoc99_fscanf@PLT				# РІС‹Р·С‹РІР°РµС‚СЃСЏ fscanf
+	cmp	eax, 1								#СЃСЂР°РІРЅРёРІР°РµС‚ РІРѕР·РІСЂР°С‰РµРЅРЅС‹Рµ РґР°РЅРЅС‹Рµ СЃ РµРґРёРЅРёС†РµР№
 	je	.L13
 	mov	rax, QWORD PTR -24[rbp]
 	mov	rcx, rax
 	mov	edx, 15
 	mov	esi, 1
-	lea	rax, .LC1[rip]						# в rax кладем "incorrect input"		
+	lea	rax, .LC1[rip]						# РІ rax РєР»Р°РґРµРј "incorrect input"
 	mov	rdi, rax
 	call	fwrite@PLT
 	mov	eax, 0
 	jmp	.L19
 .L13:
-	mov	rax, QWORD PTR -16[rbp]				
-	lea	rdx, SEARCHABLE[rip]				# в rdx кладем начало строки.
+	mov	rax, QWORD PTR -16[rbp]
+	lea	rdx, SEARCHABLE[rip]				# РІ rdx РєР»Р°РґРµРј РЅР°С‡Р°Р»Рѕ СЃС‚СЂРѕРєРё.
 	lea	rcx, .LC7[rip]
 	mov	rsi, rcx
 	mov	rdi, rax
@@ -272,28 +272,28 @@ main:
 .L12:
 	mov	rax, QWORD PTR -160[rbp]
 	add	rax, 8
-	mov	rax, QWORD PTR [rax]				# в rax кладется argv[1]
-	lea	rdx, .LC11[rip]						# в rdx кладется "-r"
+	mov	rax, QWORD PTR [rax]				# РІ rax РєР»Р°РґРµС‚СЃСЏ argv[1]
+	lea	rdx, .LC11[rip]						# РІ rdx РєР»Р°РґРµС‚СЃСЏ "-r"
 	mov	rsi, rdx
 	mov	rdi, rax
-	call	strcmp@PLT						# вызывается функция сравнения
+	call	strcmp@PLT						# РІС‹Р·С‹РІР°РµС‚СЃСЏ С„СѓРЅРєС†РёСЏ СЃСЂР°РІРЅРµРЅРёСЏ
 	test	eax, eax
 	jne	.L17
 	mov	eax, 0
-	call	randomDate						# вызывается функция randomDate
+	call	randomDate						# РІС‹Р·С‹РІР°РµС‚СЃСЏ С„СѓРЅРєС†РёСЏ randomDate
 	lea	rax, SEARCHABLE[rip]
-	mov	rsi, rax							# в rsi кладется ссылка на начало слова SEARCHABLE
+	mov	rsi, rax							# РІ rsi РєР»Р°РґРµС‚СЃСЏ СЃСЃС‹Р»РєР° РЅР° РЅР°С‡Р°Р»Рѕ СЃР»РѕРІР° SEARCHABLE
 	lea	rax, START[rip]
-	mov	rdi, rax							# В rdi кладется ссылка на начало слова START
-	call	Find@PLT						# вызывается функция find
+	mov	rdi, rax							# Р’ rdi РєР»Р°РґРµС‚СЃСЏ СЃСЃС‹Р»РєР° РЅР° РЅР°С‡Р°Р»Рѕ СЃР»РѕРІР° START
+	call	Find@PLT						# РІС‹Р·С‹РІР°РµС‚СЃСЏ С„СѓРЅРєС†РёСЏ find
 	mov	QWORD PTR -8[rbp], rax
 	lea	rax, START[rip]
-	mov	rdi, rax							
-	call	puts@PLT						# printf(START)			
+	mov	rdi, rax
+	call	puts@PLT						# printf(START)
 	lea	rax, SEARCHABLE[rip]
 	mov	rdi, rax
-	call	puts@PLT						# printf(SEARCHABLE)		
-	cmp	QWORD PTR -8[rbp], 0				# сравнение istr с null
+	call	puts@PLT						# printf(SEARCHABLE)
+	cmp	QWORD PTR -8[rbp], 0				# СЃСЂР°РІРЅРµРЅРёРµ istr СЃ null
 	jne	.L18
 	lea	rax, .LC2[rip]
 	mov	rdi, rax

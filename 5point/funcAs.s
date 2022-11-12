@@ -20,31 +20,31 @@ diff:
 	mov	rdi, r9
 	mov	rdi, rax
 	mov	QWORD PTR -32[rbp], rsi
-	mov	QWORD PTR -24[rbp], rdi					# в стек end
-	mov	QWORD PTR -48[rbp], rdx					# в стек кидаем st
+	mov	QWORD PTR -24[rbp], rdi					# РІ СЃС‚РµРє end
+	mov	QWORD PTR -48[rbp], rdx					# РІ СЃС‚РµРє РєРёРґР°РµРј st
 	mov	QWORD PTR -40[rbp], rcx
 	mov	rax, QWORD PTR -32[rbp]
 	pxor	xmm1, xmm1
-	cvtsi2sd	xmm1, rax						# преобразует и кладет значение st.tv_sec в xmm1
-	movsd	xmm0, QWORD PTR .LC0[rip]			# в xmm0 кладет значение 10е8
+	cvtsi2sd	xmm1, rax						# РїСЂРµРѕР±СЂР°Р·СѓРµС‚ Рё РєР»Р°РґРµС‚ Р·РЅР°С‡РµРЅРёРµ st.tv_sec РІ xmm1
+	movsd	xmm0, QWORD PTR .LC0[rip]			# РІ xmm0 РєР»Р°РґРµС‚ Р·РЅР°С‡РµРЅРёРµ 10Рµ8
 	mulsd	xmm1, xmm0							# st.tv_sec *10e8
-	mov	rax, QWORD PTR -24[rbp]					# в rax кладут st.tv_nsec
+	mov	rax, QWORD PTR -24[rbp]					# РІ rax РєР»Р°РґСѓС‚ st.tv_nsec
 	pxor	xmm0, xmm0
-	cvtsi2sd	xmm0, rax						# в xmm0 кладем st.tv_nsec
-	addsd	xmm0, xmm1							# складываем две части
-	cvttsd2si	rax, xmm0						# в rax кладем значение суммы
+	cvtsi2sd	xmm0, rax						# РІ xmm0 РєР»Р°РґРµРј st.tv_nsec
+	addsd	xmm0, xmm1							# СЃРєР»Р°РґС‹РІР°РµРј РґРІРµ С‡Р°СЃС‚Рё
+	cvttsd2si	rax, xmm0						# РІ rax РєР»Р°РґРµРј Р·РЅР°С‡РµРЅРёРµ СЃСѓРјРјС‹
 	mov	QWORD PTR -8[rbp], rax
-	mov	rax, QWORD PTR -48[rbp]					# в rax кладем end.tv_sec
+	mov	rax, QWORD PTR -48[rbp]					# РІ rax РєР»Р°РґРµРј end.tv_sec
 	pxor	xmm1, xmm1
-	cvtsi2sd	xmm1, rax						# в xmm1 кладем end.tv_sec			
-	movsd	xmm0, QWORD PTR .LC0[rip]			# в xmm0 кладет значение 10е8
-	mulsd	xmm1, xmm0							
+	cvtsi2sd	xmm1, rax						# РІ xmm1 РєР»Р°РґРµРј end.tv_sec
+	movsd	xmm0, QWORD PTR .LC0[rip]			# РІ xmm0 РєР»Р°РґРµС‚ Р·РЅР°С‡РµРЅРёРµ 10Рµ8
+	mulsd	xmm1, xmm0
 	mov	rax, QWORD PTR -40[rbp]					# end.tv_sec *10e8
 	pxor	xmm0, xmm0
-	cvtsi2sd	xmm0, rax						# в xmm0 кладем end.tv_nsec
-	addsd	xmm0, xmm1							# складываем обе части
-	cvttsd2si	rax, xmm0						# преобразуем и кладем в rax сумму
-	mov	QWORD PTR -16[rbp], rax					# в стек кидаем значение второй суммы
+	cvtsi2sd	xmm0, rax						# РІ xmm0 РєР»Р°РґРµРј end.tv_nsec
+	addsd	xmm0, xmm1							# СЃРєР»Р°РґС‹РІР°РµРј РѕР±Рµ С‡Р°СЃС‚Рё
+	cvttsd2si	rax, xmm0						# РїСЂРµРѕР±СЂР°Р·СѓРµРј Рё РєР»Р°РґРµРј РІ rax СЃСѓРјРјСѓ
+	mov	QWORD PTR -16[rbp], rax					# РІ СЃС‚РµРє РєРёРґР°РµРј Р·РЅР°С‡РµРЅРёРµ РІС‚РѕСЂРѕР№ СЃСѓРјРјС‹
 	mov	rax, QWORD PTR -8[rbp]
 	sub	rax, QWORD PTR -16[rbp]					# tot1-tot2
 	lea	rdx, .LC1[rip]
@@ -52,7 +52,7 @@ diff:
 	lea	rax, .LC2[rip]
 	mov	rdi, rax
 	mov	eax, 0
-	call	printf@PLT							# вызываем функцию printf
+	call	printf@PLT							# РІС‹Р·С‹РІР°РµРј С„СѓРЅРєС†РёСЋ printf
 	nop
 	leave
 	ret
@@ -66,23 +66,23 @@ Find:
 	sub	rsp, 64
 	mov	QWORD PTR -56[rbp], rdi
 	mov	QWORD PTR -64[rbp], rsi
-	lea	rax, -32[rbp]							# в rax ссылка на st
+	lea	rax, -32[rbp]							# РІ rax СЃСЃС‹Р»РєР° РЅР° st
 	mov	rsi, rax
 	mov	edi, 1
-	call	clock_gettime@PLT					# вызов функции clock_gettime
-	mov	rdx, QWORD PTR -64[rbp]					# в rdx значение searchable
-	mov	rax, QWORD PTR -56[rbp]					# в rax значение start
+	call	clock_gettime@PLT					# РІС‹Р·РѕРІ С„СѓРЅРєС†РёРё clock_gettime
+	mov	rdx, QWORD PTR -64[rbp]					# РІ rdx Р·РЅР°С‡РµРЅРёРµ searchable
+	mov	rax, QWORD PTR -56[rbp]					# РІ rax Р·РЅР°С‡РµРЅРёРµ start
 	mov	rsi, rdx
 	mov	rdi, rax
-	call	strstr@PLT							# вызывается функция strstr
+	call	strstr@PLT							# РІС‹Р·С‹РІР°РµС‚СЃСЏ С„СѓРЅРєС†РёСЏ strstr
 	mov	QWORD PTR -8[rbp], rax
-	lea	rax, -48[rbp]							# в rax ссылка на end					
+	lea	rax, -48[rbp]							# РІ rax СЃСЃС‹Р»РєР° РЅР° end
 	mov	rsi, rax
 	mov	edi, 1
-	call	clock_gettime@PLT					# вызов функции clock_gettime
-	mov	rax, QWORD PTR -32[rbp]					# в rax ссылка на st
+	call	clock_gettime@PLT					# РІС‹Р·РѕРІ С„СѓРЅРєС†РёРё clock_gettime
+	mov	rax, QWORD PTR -32[rbp]					# РІ rax СЃСЃС‹Р»РєР° РЅР° st
 	mov	rdx, QWORD PTR -24[rbp]
-	mov	rdi, QWORD PTR -48[rbp]				    # в rdi ссылка на end	
+	mov	rdi, QWORD PTR -48[rbp]				    # РІ rdi СЃСЃС‹Р»РєР° РЅР° end
 	mov	rsi, QWORD PTR -40[rbp]
 	mov	rcx, rdx
 	mov	rdx, rax
